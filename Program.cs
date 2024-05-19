@@ -44,34 +44,53 @@ Console.WriteLine("el número invertido es: "+invertir(aux));
 
 //punto 2
 
-int n1, n2, resul, oper, hacer;
+float n1, n2, resul;
+int oper, hacer;
+string num1, num2, operS, seguir;
+bool esOper, esNum1, esNum2, esSeguir;
 
 do{
     Console.WriteLine("qué operación desea hacer?:\n\t1.Sumar\n\t2.Restar\n\t3.Multiplicar\n\t4.Dividir\n");
-    oper = Console.Read();
+    operS = Console.ReadLine();
     Console.WriteLine("ingrese el primer número a operar: ");
-    n1 = Console.Read();
+    num1 = Console.ReadLine();
     Console.WriteLine("ingrese el segundo número a operar: ");
-    n2 = Console.Read();
+    num2 = Console.ReadLine();
 
-    switch(oper)
+    esOper = int.TryParse(operS, out oper);
+    esNum1 = float.TryParse(num1, out n1);
+    esNum2 = float.TryParse(num2, out n2);
+
+    if(esOper && esNum1 && esNum2)
     {
-        case 1:
-            resul = n1 + n2;
-            break;
-        case 2:
-            resul = n1 - n2;
-            break;
-        case 3:
-            resul = n1 * n2;
-            break;
-        case 4:
-            resul = n1 / n2;
-            break;
-        default:
-            resul = 0;
-            break;
+        switch(oper)
+        {
+            case 1:
+                resul = n1 + n2;
+                break;
+            case 2:
+                resul = n1 - n2;
+                break;
+            case 3:
+                resul = n1 * n2;
+                break;
+            case 4:
+                resul = n1 / n2;
+                break;
+            default:
+                resul = 0;
+                break;
+        }
+        Console.WriteLine("resultado: "+resul);
     }
-    Console.WriteLine("desea realizar otro cálculo? 1.Si 0.No");
-    hacer = Console.Read();
-}while(hacer);
+    else
+    {
+        Console.WriteLine("algo de lo ingresado no es correcto");
+    }
+
+    do{
+        Console.WriteLine("desea realizar otro cálculo? 1.Si 0.No");
+        seguir = Console.ReadLine();
+        esSeguir = int.TryParse(seguir, out hacer);
+    }while(!esSeguir || hacer < 0 || hacer > 1);
+}while(hacer != 0);
